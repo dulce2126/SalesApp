@@ -20,10 +20,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             SalesTheme {
                 //CreateProductScreen(
-                 //   onNavigateBack = {
-                   //     finish()
-                AppNavigation()
-                }
+                    //onNavigateBack = {
+                      //  finish()
+                        AppNavigation()
+            }
             }
         }
     }

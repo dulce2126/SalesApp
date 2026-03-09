@@ -64,10 +64,13 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.material3)
     ksp("androidx.room:room-compiler:2.8.4")
+    //hilt
     ksp("com.google.dagger:hilt-android:2.59.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    //icons
+    implementation("androidx.compose.material:material-icons-extended")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
