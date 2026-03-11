@@ -2,8 +2,13 @@ package com.example.sales.presentation.product.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sales.domain.model.Customer
 import com.example.sales.domain.model.Product
+import com.example.sales.domain.usecase.customer.CreateCustomerUseCase
 import com.example.sales.domain.usecase.product.CreateProductUseCase
+import com.example.sales.presentation.customer.create.CreateCustomerUIEffect
+import com.example.sales.presentation.customer.create.CreateCustomerUIEvent
+import com.example.sales.presentation.customer.create.CreateCustomerUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -12,18 +17,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
 @HiltViewModel
 class CreateProductViewModel @Inject constructor(
     private val createProductUseCase: CreateProductUseCase
-)   : ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(CreateProductUIState())
     val state: StateFlow<CreateProductUIState> = _state
 
     private val _effect = Channel<CreateProductUIEffect>()
     val effect = _effect.receiveAsFlow()
-
 
     private fun updateState(update: CreateProductUIState.() -> CreateProductUIState) {
         _state.update(update)
@@ -56,7 +59,6 @@ class CreateProductViewModel @Inject constructor(
         }
     }
 
-
     private fun saveProduct() {
 
         val currentState = state.value
@@ -65,7 +67,6 @@ class CreateProductViewModel @Inject constructor(
             sendEffect(CreateProductUIEffect.ShowError("Code required"))
             return
         }
-
 
         viewModelScope.launch {
 
@@ -107,4 +108,3 @@ class CreateProductViewModel @Inject constructor(
         }
     }
 }
-

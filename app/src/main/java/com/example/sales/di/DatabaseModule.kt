@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import com.example.sales.data.local.dao.ProductDao
 import com.example.sales.data.local.SalesDatabase
+import com.example.sales.data.local.dao.CustomerDao
 import javax.inject.Singleton
 
 @Module
@@ -26,7 +27,9 @@ object DatabaseModule {
             context,
             SalesDatabase::class.java,
             "sales.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -34,5 +37,12 @@ object DatabaseModule {
         database: SalesDatabase
     ): ProductDao {
         return database.productDao()
+    }
+
+    @Provides
+    fun provideCustomerDao(
+        database: SalesDatabase
+    ): CustomerDao {
+        return database.customerDao()
     }
 }

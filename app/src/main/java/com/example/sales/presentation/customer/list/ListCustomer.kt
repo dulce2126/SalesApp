@@ -1,20 +1,22 @@
-package com.example.sales.presentation.product.list
+package com.example.sales.presentation.customer.list
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.sales.domain.model.Product
+import com.example.sales.domain.model.Customer
 
 
 @Composable
-fun ListProduct(
-    products: List<Product>,
-    //here we receive the action to delete the product
-    onDeleteProduct: (Product) -> Unit
-    ) {
+fun ListCustomer(
+    customers: List<Customer>,
+    //here we receive the action to delete the Customer
+    onDeleteCustomer: (Customer) -> Unit
+) {
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -27,13 +29,13 @@ fun ListProduct(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
-            items = products,
+            items = customers,
             key = { it.code }
-        ) { product ->
-            ProductItem(product = product,
+        ) { customer ->
+            CustomerItem(customer = customer,
                 //here we send the action to delete to each card
-                onDeleteProduct = onDeleteProduct
-                )
+                onDeleteCustomer = onDeleteCustomer
+            )
         }
     }
 }

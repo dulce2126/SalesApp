@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.8.4")
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui)
     ksp("androidx.room:room-compiler:2.8.4")
     //hilt
     ksp("com.google.dagger:hilt-android:2.59.2")

@@ -34,6 +34,6 @@ class InMemoryProductRepository @Inject constructor()
         deleteById(productCode)
     }
 
-//devuelve muchos elementos por eso se pone flow
+//this returns a lot of elements that's why we use flow instead of list
     override fun getProducts(): Flow<List<Product>> = observeAll()
 }

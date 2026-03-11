@@ -1,4 +1,4 @@
-package com.example.sales.presentation.product.list
+package com.example.sales.presentation.customer.list
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.sales.domain.model.Product
+import com.example.sales.domain.model.Customer
 
 
 @Composable
-fun ProductItem
-    (product: Product,
-    onDeleteProduct: (Product) -> Unit)
-{
+fun CustomerItem(
+    customer: Customer,
+    onDeleteCustomer: (Customer) -> Unit
+) {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -27,19 +27,18 @@ fun ProductItem
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(
-            modifier = Modifier
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
 
             Text(
-                text = product.description,
+                text = customer.name,
                 style = MaterialTheme.typography.titleMedium
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "Code: ${product.code}",
+                text = "Code: ${customer.code}",
                 style = MaterialTheme.typography.bodySmall
             )
 
@@ -50,38 +49,32 @@ fun ProductItem
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column{
-                Text(
-                    text = "Price: $${product.price}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+
+                Column {
+
+                    Text(
+                        text = "Email: ${customer.email}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
 
                     Spacer(modifier = Modifier.height(4.dp))
 
-                Text(
-                    text = "Stock: ${product.stock}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+                    Text(
+                        text = "History: ${customer.purchaseHistory}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+
                 IconButton(
-                    //button to delete the product from the card
-                    onClick = { onDeleteProduct(product) }
+                    // button to delete the customer from the card
+                    onClick = { onDeleteCustomer(customer) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Eliminar producto",
+                        contentDescription = "Eliminar cliente",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
-            }
-
-            if (product.taxable) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Taxable",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.labelSmall
-                )
             }
         }
     }
