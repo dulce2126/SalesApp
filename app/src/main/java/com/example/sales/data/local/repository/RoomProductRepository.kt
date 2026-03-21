@@ -1,4 +1,4 @@
-package com.example.sales.data.repository
+package com.example.sales.data.local.repository
 
 import com.example.sales.data.local.dao.ProductDao
 import com.example.sales.data.mapper.toDomain

@@ -56,70 +56,75 @@ fun ListProductScreen(
             }
         }
 
-    ) { _ ->
-
-        when {
-            uiState.isLoading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-
-            uiState.products.isEmpty() -> {
-                EmptyProductsView()
-            }
-
-            else -> {
-                ListProduct(
-                    products = uiState.products,
-                    //here we send to ViewModel the application to delete the product before we validate the elimination
-                    //onDeleteProduct = { product ->
-                    //    viewModel.deleteProduct(product)
-                    //}
-                    onDeleteProduct = { product ->
-                        //here we save the product and we show a confirmation to delete, this is an after
-                        productToDelete = product
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(top = 20.dp)
+        ) {
+            when {
+                uiState.isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
-                )
+                }
+
+                uiState.products.isEmpty() -> {
+                    EmptyProductsView()
+                }
+
+                else -> {
+                    ListProduct(
+                        products = uiState.products,
+                        //here we send to ViewModel the application to delete the product before we validate the elimination
+                        //onDeleteProduct = { product ->
+                        //    viewModel.deleteProduct(product)
+                        //}
+                        onDeleteProduct = { product ->
+                            //here we save the product and we show a confirmation to delete, this is an after
+                            productToDelete = product
+                        }
+                    )
+                }
             }
         }
-    }
 
-    //here we show the confirmation before we delete the product
-    productToDelete?.let { product ->
-        AlertDialog(
-            onDismissRequest = {
-                productToDelete = null
-            },
-            title = {
-                Text("Confirmar eliminación")
-            },
-            text = {
-                Text("¿Seguro que deseas eliminar el producto ${product.description}?")
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        viewModel.deleteProduct(product)
-                        productToDelete = null
+        //here we show the confirmation before we delete the product
+        productToDelete?.let { product ->
+            AlertDialog(
+                onDismissRequest = {
+                    productToDelete = null
+                },
+                title = {
+                    Text("Confirmar eliminación")
+                },
+                text = {
+                    Text("¿Seguro que deseas eliminar el producto ${product.description}?")
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            viewModel.deleteProduct(product)
+                            productToDelete = null
+                        }
+                    ) {
+                        Text("Eliminar")
                     }
-                ) {
-                    Text("Eliminar")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        productToDelete = null
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            productToDelete = null
+                        }
+                    ) {
+                        Text("Cancelar")
                     }
-                ) {
-                    Text("Cancelar")
                 }
-            }
-        )
+            )
+        }
     }
-
 }

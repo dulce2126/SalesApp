@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -68,65 +69,70 @@ fun ListCustomerScreen(
                 }
             }
         }
-    ) { _ ->
-
-        when {
-            uiState.isLoading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-
-            uiState.customers.isEmpty() -> {
-                EmptyCustomersView()
-            }
-
-            else -> {
-                ListCustomer(
-                    customers = uiState.customers,
-                    // here we save the customer and show a confirmation before deleting
-                    onDeleteCustomer = { customer ->
-                        customerToDelete = customer
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(top = 20.dp)
+        ) {
+            when {
+                uiState.isLoading -> {
+                    Box(
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
-                )
+                }
+
+                uiState.customers.isEmpty() -> {
+                    EmptyCustomersView()
+                }
+
+                else -> {
+                    ListCustomer(
+                        customers = uiState.customers,
+                        // here we save the customer and show a confirmation before deleting
+                        onDeleteCustomer = { customer ->
+                            customerToDelete = customer
+                        }
+                    )
+                }
             }
         }
-    }
 
-    // here we show the confirmation before deleting the customer
-    customerToDelete?.let { customer ->
-        AlertDialog(
-            onDismissRequest = {
-                customerToDelete = null
-            },
-            title = {
-                Text("Confirmar eliminación")
-            },
-            text = {
-                Text("¿Seguro que deseas eliminar al cliente ${customer.name}?")
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        viewModel.deleteCustomer(customer)
-                        customerToDelete = null
+        // here we show the confirmation before deleting the customer
+        customerToDelete?.let { customer ->
+            AlertDialog(
+                onDismissRequest = {
+                    customerToDelete = null
+                },
+                title = {
+                    Text("Confirmar eliminación")
+                },
+                text = {
+                    Text("¿Seguro que deseas eliminar al cliente ${customer.name}?")
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            viewModel.deleteCustomer(customer)
+                            customerToDelete = null
+                        }
+                    ) {
+                        Text("Eliminar")
                     }
-                ) {
-                    Text("Eliminar")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        customerToDelete = null
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            customerToDelete = null
+                        }
+                    ) {
+                        Text("Cancelar")
                     }
-                ) {
-                    Text("Cancelar")
                 }
-            }
-        )
+            )
+        }
     }
 }

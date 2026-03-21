@@ -54,13 +54,15 @@ fun CreateCustomerScreen(
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) }
-    ) {
+    ) { paddingValues ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(paddingValues)
+                .padding(20.dp)
+                .padding(top = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
 
             Text(

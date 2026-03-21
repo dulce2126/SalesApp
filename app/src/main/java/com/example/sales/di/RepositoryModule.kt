@@ -1,8 +1,9 @@
 package com.example.sales.di
 
-import com.example.sales.data.repository.InMemoryProductRepository
-import com.example.sales.data.repository.RoomCustomerRepository
-import com.example.sales.data.repository.RoomProductRepository
+import com.example.sales.data.local.repository.RoomCustomerRepository
+import com.example.sales.data.local.repository.RoomProductRepository
+import com.example.sales.data.remote.FirestoreCustomerRepository
+import com.example.sales.data.remote.FirestoreProductRepository
 import com.example.sales.domain.repository.CustomerRepository
 import com.example.sales.domain.repository.ProductRepository
 import dagger.Binds
@@ -20,16 +21,16 @@ abstract class RepositoryModule {
     //donde se haga referencia, el objeto que va a crear es un InMemoryProductRepository
     //aquí es donde se hace la inyección
     //aqui se cambia dependiendo donde se quiere que se almacene ya sea en la
-    //base de datos(RoomProductRepository) o (InMemoryProductRepository)
+    //base de datos(RoomProductRepository) o (InMemoryProductRepository) o (FirestoreProductRepository)
 
     abstract fun bindProductRepository(
-        repository: RoomProductRepository
+        repository: FirestoreProductRepository//RoomProductRepository
     ): ProductRepository
 
     @Binds
     @Singleton
     abstract fun bindCustomerRepository(
-        repository: RoomCustomerRepository
+        repository: FirestoreCustomerRepository//RoomCustomerRepository
     ): CustomerRepository
 }
 

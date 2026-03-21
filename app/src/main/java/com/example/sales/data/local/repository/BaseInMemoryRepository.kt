@@ -1,4 +1,4 @@
-package com.example.sales.data.repository
+package com.example.sales.data.local.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
