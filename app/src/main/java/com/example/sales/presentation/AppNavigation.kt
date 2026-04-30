@@ -16,7 +16,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "product_list"
+        startDestination = "customer_list"
     ) {
 
         composable("product_list") {

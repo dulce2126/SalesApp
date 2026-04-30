@@ -1,5 +1,6 @@
-package com.example.sales.data.remote
+package com.example.sales.data.repository
 
+import com.example.sales.data.remote.datasource.ProductFirebaseDataSource
 import com.example.sales.domain.model.Product
 import com.example.sales.domain.repository.ProductRepository
 import jakarta.inject.Inject

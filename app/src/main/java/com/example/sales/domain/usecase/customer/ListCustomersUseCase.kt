@@ -1,5 +1,6 @@
 package com.example.sales.domain.usecase.customer
 
+import android.util.Log
 import com.example.sales.domain.model.Customer
 import com.example.sales.domain.model.Product
 import com.example.sales.domain.repository.CustomerRepository
@@ -12,6 +13,7 @@ class ListCustomersUseCase @Inject constructor(
 ) {
 
     operator fun invoke(): Flow<List<Customer>> {
+        Log.d("LOAD","Solicitando datos...")
         return repository.getCustomers()
     }
 }

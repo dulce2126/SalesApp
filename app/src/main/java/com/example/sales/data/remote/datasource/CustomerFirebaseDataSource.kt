@@ -1,4 +1,4 @@
-package com.example.sales.data.remote
+package com.example.sales.data.remote.datasource
 
 import com.example.sales.domain.model.Customer
 import com.google.firebase.firestore.FirebaseFirestore

@@ -1,4 +1,4 @@
-package com.example.sales.data.local.repository
+package com.example.sales.data.repository
 
 import com.example.sales.domain.model.Product
 import com.example.sales.domain.repository.ProductRepository

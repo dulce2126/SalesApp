@@ -1,9 +1,9 @@
 package com.example.sales.di
 
-import com.example.sales.data.local.repository.RoomCustomerRepository
-import com.example.sales.data.local.repository.RoomProductRepository
-import com.example.sales.data.remote.FirestoreCustomerRepository
-import com.example.sales.data.remote.FirestoreProductRepository
+import com.example.sales.data.repository.CustomerRepositoryImpl
+import com.example.sales.data.repository.FirestoreCustomerRepository
+import com.example.sales.data.repository.FirestoreProductRepository
+import com.example.sales.data.repository.ProductRepositoryImpl
 import com.example.sales.domain.repository.CustomerRepository
 import com.example.sales.domain.repository.ProductRepository
 import dagger.Binds
@@ -24,13 +24,13 @@ abstract class RepositoryModule {
     //base de datos(RoomProductRepository) o (InMemoryProductRepository) o (FirestoreProductRepository)
 
     abstract fun bindProductRepository(
-        repository: FirestoreProductRepository//RoomProductRepository
+        repository: ProductRepositoryImpl//FirestoreProductRepository//RoomProductRepository
     ): ProductRepository
 
     @Binds
     @Singleton
     abstract fun bindCustomerRepository(
-        repository: FirestoreCustomerRepository//RoomCustomerRepository
+        repository: CustomerRepositoryImpl//RoomCustomerRepository
     ): CustomerRepository
 }
 
